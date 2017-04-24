@@ -23,4 +23,9 @@ public class EditUserView implements View {
     public void setController(Controller controller) {
         this.controller = controller;
     }
+
+    void fireEventUserDeleted(long id){
+        controller.onUserDelete(id);
+    }
+
 }

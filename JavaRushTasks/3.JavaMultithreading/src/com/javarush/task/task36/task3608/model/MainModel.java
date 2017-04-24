@@ -30,4 +30,15 @@ public class MainModel implements Model {
         List<User> users = userService.getAllDeletedUsers();
         modelData.setUsers(users);
     }
+
+    @Override
+    public void loadUserById(long userId) {
+        User user = userService.getUsersById(userId);
+        modelData.setActiveUser(user);
+    }
+    @Override
+    public void deleteUserById(long id){
+        User user= userService.deleteUser(id);
+        modelData.setUsers(userService.getAllDeletedUsers());
+    }
 }
