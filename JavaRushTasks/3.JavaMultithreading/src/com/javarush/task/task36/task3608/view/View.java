@@ -4,7 +4,7 @@ import com.javarush.task.task36.task3608.controller.Controller;
 import com.javarush.task.task36.task3608.model.ModelData;
 
 /**
- * Created by NazarenkoDS on 21.04.2017.
+ * Created by NazarenkoDS on 28.04.2017.
  */
 public interface View {
     void refresh(ModelData modelData);

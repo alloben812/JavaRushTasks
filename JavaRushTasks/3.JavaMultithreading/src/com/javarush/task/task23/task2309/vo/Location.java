@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Location extends NamedItem {
     public List<Location> getLocations(){
+
         return null;
     }
 }
