@@ -9,8 +9,5 @@ import java.util.List;
  */
 public class User extends NamedItem {
 
-    public List <User> getUsers(){
-        return null;
 
-    }
 }
