@@ -33,7 +33,26 @@ public class View extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        switch (e.getActionCommand()) {
+            case "Новый":
+                controller.createNewDocument();
+                break;
+            case "Открыть":
+                controller.openDocument();
+                break;
+            case "Сохранить":
+                controller.saveDocument();
+                break;
+            case "Сохранить как...":
+                controller.saveDocumentAs();
+                break;
+            case "Выход":
+                controller.exit();
+                break;
+            case "О программе":
+                showAbout();
+                break;
+        }
     }
     private Controller controller;
     private UndoManager undoManager=new UndoManager();
@@ -86,9 +105,26 @@ public class View extends JFrame implements ActionListener {
         initEditor();
         pack();
     }
-
+    public void selectHtmlTab() {
+        //Выбирать html вкладку (переключаться на нее)
+        tabbedPane.setSelectedIndex(0);
+        //Сбрасывать все правки с помощью метода
+        resetUndo();
+    }
     public void selectedTabChanged() {
-
+        //Метод должен проверить, какая вкладка сейчас оказалась выбранной
+        //Если выбрана вкладка с индексом 0 (html вкладка)
+        if (tabbedPane.getSelectedIndex() == 0) {
+            //значит нам нужно получить текст из plainTextPane и установить его в контроллер с помощью метода setPlainText
+            controller.setPlainText(plainTextPane.getText());
+        }
+        //сли выбрана вкладка с индексом 1 (вкладка с html текстом)
+        else if (tabbedPane.getSelectedIndex() == 1){
+            //необходимо получить текст у контроллера с помощью метода getPlainText() и установить его в панель plainTextPane
+            plainTextPane.setText(controller.getPlainText());
+        }
+        //Сбросить правки
+        resetUndo();
     }
 
     public boolean canUndo(){
@@ -96,6 +132,13 @@ public class View extends JFrame implements ActionListener {
         return undoManager.canUndo();
     }
 
+    public void update(){
+        htmlTextPane.setDocument(controller.getDocument());
+    }
+
+    public void showAbout(){
+        JOptionPane.showMessageDialog(this, "HTML Editor", "About", JOptionPane.INFORMATION_MESSAGE);
+    }
     public boolean canRedo(){
         return undoManager.canRedo();
     }
@@ -119,5 +162,9 @@ public class View extends JFrame implements ActionListener {
     }
     public void resetUndo(){
         undoManager.discardAllEdits();
+    }
+
+    public boolean isHtmlTabSelected(){
+        return tabbedPane.getSelectedIndex()==0;
     }
 }
